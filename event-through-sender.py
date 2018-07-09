@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QWidget,QApplication,QPushButton,QGridLayout,QStatusBar
+from PyQt5.QtWidgets import QWidget,QApplication,QPushButton,QGridLayout,QStatusBar,QHBoxLayout
 from PyQt5.QtCore import Qt
 import sys
 
@@ -10,21 +10,23 @@ class App(QWidget):
 	def initUI(self):
 		grid = QGridLayout()
 		self.statusbar = QStatusBar(self)
+		hbox = QHBoxLayout()
 
 		btn1 = QPushButton('Button 1',self)
 		btn1.resize(btn1.sizeHint())
 		btn2 = QPushButton('Button 2',self)
 		btn2.resize(btn2.sizeHint())
-		grid.setSpacing(10)
+		hbox.addWidget(btn1)
+		hbox.addWidget(btn2)
+		grid.setSpacing(5)
 
-		grid.addWidget(btn1,1,0)
-		grid.addWidget(btn2,1,1)
+		grid.addLayout(hbox,1,0)
 		grid.addWidget(self.statusbar,3,0,Qt.AlignBottom)
 
 		btn1.clicked.connect(self.buttonClicked)
 		btn2.clicked.connect(self.buttonClicked)
 
-		self.setGeometry(300,300,300,350)
+		self.adjustSize()
 		self.setWindowTitle('Event Sender')
 
 		self.setLayout(grid)
